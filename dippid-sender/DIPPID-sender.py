@@ -20,15 +20,13 @@ def simulate_accelerometer():
 
 
 def simulate_button1():
-    random_btn_state = random.randint(0, 5)
+    random_btn_state = random.randint(0, 3)
     message_btn = None
-    if random_btn_state > 2:
+    if random_btn_state > 1:
         return
     elif random_btn_state == 0:
         message_btn = '{"button1" : {"state" : "btn_down"}}'
     elif random_btn_state == 1:
-        message_btn = '{"button1" : {"state" : "btn_pressed"}}'
-    elif random_btn_state == 2:
         message_btn = '{"button1" : {"state" : "btn_up"}}'
     sock.sendto(message_btn.encode(), (IP, PORT))
     time.sleep(0.5)

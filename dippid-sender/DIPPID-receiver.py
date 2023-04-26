@@ -1,6 +1,5 @@
 from DIPPID import SensorUDP
 
-# use UPD (via WiFi) for communication
 PORT = 5700
 sensor = SensorUDP(PORT)
 
