@@ -14,15 +14,16 @@ class Enemy:
         self.height = 75
         self.min_v = 0.1
         self.random_v = 6
-        self.random_y = 3500
+        self.random_y_start = self.win_h + 200
+        self.random_y_end = 5000
 
         self.cars = []
         x_lane_middle = win_w / 2 - self.width / 2
         x_lane_left = win_w / 6 + win_w / 12
         x_lane_right = win_w - win_w / 3
-        self.cars.append((shapes.Rectangle(x=x_lane_left, y=random.randint(self.win_h, self.random_y), width=self.width, height=self.height, color=get_random_color()), random.randint(0, self.random_v)))
-        self.cars.append((shapes.Rectangle(x=x_lane_middle, y=random.randint(self.win_h, self.random_y), width=self.width, height=self.height, color=get_random_color()), random.randint(0, self.random_v)))
-        self.cars.append((shapes.Rectangle(x=x_lane_right, y=random.randint(self.win_h, self.random_y), width=self.width, height=self.height, color=get_random_color()), random.randint(0, self.random_v)))
+        self.cars.append((shapes.Rectangle(x=x_lane_left, y=random.randint(self.random_y_start, self.random_y_end), width=self.width, height=self.height, color=get_random_color()), random.randint(0, self.random_v)))
+        self.cars.append((shapes.Rectangle(x=x_lane_middle, y=random.randint(self.random_y_start, self.random_y_end), width=self.width, height=self.height, color=get_random_color()), random.randint(0, self.random_v)))
+        self.cars.append((shapes.Rectangle(x=x_lane_right, y=random.randint(self.random_y_start, self.random_y_end), width=self.width, height=self.height, color=get_random_color()), random.randint(0, self.random_v)))
 
         self.num_enemies_reached_bottom = 0
 
@@ -58,6 +59,6 @@ class Enemy:
         :param i: index of car in self.cars (left, middle, right)
         '''
         car.color = get_random_color()
-        car.y = random.randint(self.win_h, self.random_y)
+        car.y = random.randint(self.random_y_start, self.random_y_end)
         self.cars[i] = (car, random.randint(0, self.random_v))
 
