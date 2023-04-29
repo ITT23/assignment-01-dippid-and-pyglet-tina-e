@@ -22,10 +22,10 @@ class Street:
             self.lanes.append(shapes.Rectangle(x=self.x + 2 / 3 * self.width, y=i*lane_h + i*space, width=7, height=lane_h, color=(255, 255, 255)))
 
     def update(self, v):
-        '''
-        move lanes to create a movement illusion
+        """
+        move lanes to create a movement illusion; *10 to adjust sensitivity
         :param v: velocity of the player based on sensor data
-        '''
+        """
         for lane in self.lanes:
             if lane.y + lane.height <= 0:
                 lane.y = self.win_h

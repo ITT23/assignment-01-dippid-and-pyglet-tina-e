@@ -8,12 +8,11 @@ class Car:
         self.height = 75
         self.body = shapes.BorderedRectangle(x=win_w / 2, y=win_h / 5, width=self.width, height=self.height, color=(156, 0, 75), border=3, border_color=(0, 0, 0))
 
-
     def update(self, movement):
-        '''
-        move the player's car
+        """
+        move the player's car; *(-10) to adjust sensitivity
         :param movement: movement (x) of the player based on sensor dat
-        '''
+        """
         self.body.x += movement * (-10)
 
     def draw(self):

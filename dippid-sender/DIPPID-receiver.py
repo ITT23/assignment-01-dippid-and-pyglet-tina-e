@@ -1,21 +1,23 @@
 from DIPPID import SensorUDP
 
+'''
+this file is just for testing DIPPID-sender.py
+'''
+
 PORT = 5700
 sensor = SensorUDP(PORT)
 
 
 def handle_acc(data):
-    if sensor.has_capability('accelerometer'):
-        acc_x = float(sensor.get_value('accelerometer')['x'])
-        acc_y = float(sensor.get_value('accelerometer')['x'])
-        acc_z = float(sensor.get_value('accelerometer')['z'])
-        print(f'x: {acc_x}, y: {acc_y}, z: {acc_z}')
+    acc_x = float(data['x'])
+    acc_y = float(data['y'])
+    acc_z = float(data['z'])
+    print(f'x: {acc_x}, y: {acc_y}, z: {acc_z}')
 
 
 def handle_btn(data):
-    if sensor.has_capability('button1'):
-        btn_state = sensor.get_value('button1')['state']
-        print(f'button1: {btn_state}')
+    btn_state = data['state']
+    print(f'button1: {btn_state}')
 
 
 sensor.register_callback('accelerometer', handle_acc)

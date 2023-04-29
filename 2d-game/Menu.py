@@ -7,8 +7,8 @@ class Menu:
         self.welcome = text.Label('WELCOME!', font_size=40, x=win_w/2, y=win_h - 200, anchor_x='center', anchor_y='center')
         self.game_over = text.Label('GAME OVER!', font_size=40, x=win_w/2, y=win_h - 200, anchor_x='center', anchor_y='center')
 
-        self.instructions_start = text.Label('Start: SPACE', x=win_w/2, y=win_h/(1.8), anchor_x='center', anchor_y='center')
-        self.instructions_exit = text.Label('Exit: Q', x=win_w/2, y=win_h/(1.8)-30, anchor_x='center', anchor_y='center')
+        self.instructions_start = text.Label('Start: SPACE', x=win_w/2, y=win_h / 1.8, anchor_x='center', anchor_y='center')
+        self.instructions_exit = text.Label('Exit: Q', x=win_w/2, y=win_h / 1.8 - 30, anchor_x='center', anchor_y='center')
 
         self.instructions_controls_tilt = text.Label('Tilt the phone to steer your car.', x=win_w/2, y=win_h/5, anchor_x='center', anchor_y='center')
         self.instructions_controls_pull = text.Label('Pull the phone towards you to slow down.', x=win_w/2, y=win_h/6, anchor_x='center', anchor_y='center')

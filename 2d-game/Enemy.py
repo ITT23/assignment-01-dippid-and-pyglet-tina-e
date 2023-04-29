@@ -28,10 +28,10 @@ class Enemy:
         self.num_enemies_reached_bottom = 0
 
     def update(self, v):
-        '''
-        move oncoming cars with their specific velocity
+        """
+        move oncoming cars with their specific velocity; *10 to adjust sensitivity
         :param v: velocity of the player based on sensor dat
-        '''
+        """
         for i, car_v_tuple in enumerate(self.cars):
             car = car_v_tuple[0]
             specific_v = car_v_tuple[1]
@@ -53,11 +53,11 @@ class Enemy:
             self.reset_car(car_v_tuple[0], i)
 
     def reset_car(self, car, i):
-        '''
+        """
         reset a car's position, color and velocity to bring up "new" cars spawning at the top
         :param car: car that collided with bottom
         :param i: index of car in self.cars (left, middle, right)
-        '''
+        """
         car.color = get_random_color()
         car.y = random.randint(self.random_y_start, self.random_y_end)
         self.cars[i] = (car, random.randint(0, self.random_v))
