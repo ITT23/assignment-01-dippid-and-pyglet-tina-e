@@ -1,28 +1,19 @@
-import sys
-
-import pyglet
 from pyglet import text, media, resource
-from DIPPID import SensorUDP
 from Car import Car
 from Street import Street
 from Menu import Menu
 from Enemy import Enemy
 
-PORT = 5700
-WINDOW_WIDTH = 600
-WINDOW_HEIGHT = 780
-sensor = SensorUDP(PORT)
-
 
 class Game:
-    def __init__(self):
-        self.street = Street(WINDOW_WIDTH, WINDOW_HEIGHT)
-        self.car = Car(WINDOW_WIDTH, WINDOW_HEIGHT)
-        self.enemy = Enemy(WINDOW_WIDTH, WINDOW_HEIGHT)
-        self.menu = Menu(WINDOW_WIDTH, WINDOW_HEIGHT)
+    def __init__(self, sensor, window_width, window_height):
+        self.sensor = sensor
+        self.street = Street(window_width, window_height)
+        self.car = Car(window_width, window_height)
+        self.enemy = Enemy(window_width, window_height)
+        self.menu = Menu(window_width, window_height)
+        self.score = text.Label("Score: 0", x=window_width-50, y=window_height-20, anchor_x='center', anchor_y='center')
         self.game_state = -1
-        self.score = text.Label("Score: 0", x=WINDOW_WIDTH-50, y=WINDOW_HEIGHT-20, anchor_x='center', anchor_y='center')
-
         # soundtrack from: https://pixabay.com/music/synthwave-digital-love-127441/
         # game over sound from: https://pixabay.com/sound-effects/game-over-arcade-6435/
         self.player = media.Player()
@@ -57,9 +48,9 @@ class Game:
                     return
             # move car and handle speed;
             # player's car is steered by tilting (acc x) and slowed down by pulling (acc z)
-            if sensor.has_capability('accelerometer'):
-                acc_x = float(sensor.get_value('accelerometer')['x'])
-                acc_z = float(sensor.get_value('accelerometer')['z'])
+            if self.sensor.has_capability('accelerometer'):
+                acc_x = float(self.sensor.get_value('accelerometer')['x'])
+                acc_z = float(self.sensor.get_value('accelerometer')['z'])
                 self.car.update(acc_x)
                 self.street.update(acc_z)
                 self.enemy.update(acc_z)
@@ -75,29 +66,3 @@ class Game:
         self.game_state = 0
         self.car.reset()
         self.enemy.reset()
-
-
-window = pyglet.window.Window(width=WINDOW_WIDTH, height=WINDOW_HEIGHT)
-pyglet.gl.glClearColor(0.1, 0.6, 0.2, 0)
-game = Game()
-
-
-@window.event
-def on_draw():
-    window.clear()
-    game.update()
-    game.draw()
-
-
-@window.event
-def on_key_press(symbol, modifiers):
-    if symbol == pyglet.window.key.SPACE:
-        game.game_state = 1
-        game.enemy.num_enemies_reached_bottom = 0
-    elif symbol == pyglet.window.key.Q:
-        sensor.disconnect()
-        sys.exit(0)
-
-
-pyglet.app.run()
-
